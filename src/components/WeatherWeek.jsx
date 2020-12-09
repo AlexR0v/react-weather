@@ -35,7 +35,6 @@ const WeatherWeek = () => {
     >
       {
         groupArrays.map(item => {
-          console.log(item.items)
           const date = new Date(item.date).toLocaleDateString('ru-RU', {
             day: 'numeric',
             year: 'numeric',
