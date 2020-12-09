@@ -1,0 +1,15 @@
+export const fontSizes = {
+  tiny: 9,
+  semiSmall: 10,
+  small: 12,
+  semiMedium: 14,
+  medium: 16,
+  default: 18,
+  xmedium: 19,
+  xlMedium: 22,
+  average: 24,
+  semiLarge: 25,
+  large: 45,
+  xlarge: 52,
+  huge: 64,
+}
