@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { color, overflow, space, system, typography } from 'styled-system'
+import { theme } from '../theme'
 
 export const Text = styled.span(
   system({
@@ -17,5 +18,5 @@ export const Text = styled.span(
 )
 
 Text.defaultProps = {
-  color: 'white',
+  color: theme.colors.text,
 }

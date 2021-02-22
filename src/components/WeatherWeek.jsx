@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Box, Column, Row } from './ui/layout'
-import { Text } from './ui/text/text'
+import { Box, Column, Row } from '../ui/layout'
+import { Text } from '../ui/text/text'
+import { theme } from '../ui/theme'
 
 const WeatherWeek = () => {
   const weatherWeekData = useSelector(store => store.weatherWeek)
@@ -31,7 +32,6 @@ const WeatherWeek = () => {
       pt={50}
       pb={50}
       flexWrap='wrap'
-      bg='blue'
     >
       {
         groupArrays.map(item => {
@@ -48,6 +48,9 @@ const WeatherWeek = () => {
             >
               <Column
                 alignItems='center'
+                bg='white'
+                borderRadius={theme.radii.medium}
+                pb={11}
               >
                 <Text>{date}</Text>
                 <Column alignItems='flex-start'>
@@ -62,7 +65,7 @@ const WeatherWeek = () => {
                           width={50}
                           justifyContent='center'
                           alignItems='center'
-                          border='white'
+                          border='text'
                         >
                           <Text>{new Date(day.dt * 1000).toLocaleTimeString().substr(0, 5)}</Text>
                         </Box>

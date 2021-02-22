@@ -9,9 +9,9 @@ const reducers = combineReducers({
   weatherWeek: weatherWeekReducer
 })
 
-const store = createStore(
+const reduxStore = createStore(
   reducers,
   composeWithDevTools(applyMiddleware(thunk))
 )
 
-export default store
+export default reduxStore

@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { getWeatherFail, getWeatherLoading, getWeatherSuccess } from './redux/weather-reducer'
-import { notifyError } from './Notification'
-import { getWeatherWeekFail, getWeatherWeekLoading, getWeatherWeekSuccess } from './redux/weatherWeek-reducer'
+import { notifyError } from '../Notification'
+import { getWeatherFail, getWeatherLoading, getWeatherSuccess } from '../redux/weather-reducer'
+import { getWeatherWeekFail, getWeatherWeekLoading, getWeatherWeekSuccess } from '../redux/weatherWeek-reducer'
 
 export const getWeather = (town, country) => async dispatch => {
   try {
