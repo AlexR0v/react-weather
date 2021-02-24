@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { makeStyles } from '@material-ui/core'
 import bg from '../../assets/bg.jpg'
+import bg2 from '../../assets/bg2.jpg'
 import { theme } from '../theme'
 
 export const useStyles = makeStyles({
@@ -20,7 +21,15 @@ export const Background = styled('div')(() => ({
   background: `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.418)), url(${bg})`,
   backgroundPosition: 'center',
   backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat'
+  backgroundRepeat: 'no-repeat',
+  '&': {
+    '@media (max-width: 475px)': {
+      background: `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.418)), url(${bg2})`,
+      backgroundSize: 'contain',
+      backgroundRepeat: 'repeat',
+      backgroundPosition: 'top',
+    }
+  }
 }))
 
 export const BackgroundTitle = styled('div')(() => ({

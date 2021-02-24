@@ -5,8 +5,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import WbSunnyIcon from '@material-ui/icons/WbSunny'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { notifyWarning } from '../Notification'
-import { getWeather, getWeatherWeek } from '../services/api'
+import { notifyError, notifyWarning } from '../Notification'
+import { getWeather, getWeatherCoord, getWeatherWeek, getWeatherWeekCoord } from '../services/api'
 import { Box, Column, Row } from '../ui/layout'
 import { Background, BackgroundTitle, useStyles } from '../ui/styles/style'
 import { Text } from '../ui/text/text'
@@ -25,24 +25,63 @@ const Weather = () => {
   }
   const [town, setTown] = useState('')
   const [openMenu, setOpenMenu] = useState(false)
+  const [lat, setLat] = useState('55.7522')
+  const [lon, setLon] = useState('37.6156')
 
   const weatherData = useSelector(store => store.weather)
 
   useEffect(() => {
-    dispatch(getWeather('Ростов-на-Дону', 'ru'))
-    dispatch(getWeatherWeek('Ростов-на-Дону', 'ru'))
-  }, [])
+    dispatch(getWeatherCoord(lat, lon))
+    dispatch(getWeatherWeekCoord(lat, lon))
+  }, [lat, lon])
 
 
   const onSubmit = async (e) => {
     e.preventDefault()
     if (town) {
       dispatch(getWeather(town, 'ru'))
+      dispatch(getWeatherWeek(town, 'ru'))
       setOpenMenu(false)
     } else {
       notifyWarning('Введите название города')
     }
   }
+
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  }
+
+  function success (pos) {
+    const crd = pos.coords
+    setLat(crd.latitude.toFixed(1))
+    setLon(crd.longitude.toFixed(1))
+  }
+
+  function errors (err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`)
+  }
+
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.permissions
+        .query({ name: 'geolocation' })
+        .then(function (result) {
+          if (result.state === 'granted') {
+            navigator.geolocation.getCurrentPosition(success)
+          } else if (result.state === 'prompt') {
+            navigator.geolocation.getCurrentPosition(success, errors, options)
+          } else if (result.state === 'denied') {
+            notifyWarning('Местоположение будет выбрано по умолчанию.')
+          }
+        })
+    } else {
+      notifyError('Не удалось определить местоположение')
+    }
+  }, [])
+
   return (
     <Background>
       <Grid
